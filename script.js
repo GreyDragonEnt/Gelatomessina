@@ -1088,9 +1088,9 @@ function initShoppingCart() {
         closeCart();
     });
     
-    // Close on backdrop click
+    // Close on backdrop click (but allow clicking through to interact with page elements)
     cartModal.addEventListener('click', (e) => {
-        if (e.target === cartModal) {
+        if (e.target === cartModal || e.target.classList.contains('bg-black/30')) {
             closeCart();
         }
     });
@@ -1120,6 +1120,7 @@ function openCart() {
     const cartSidebar = cartModal.querySelector('.fixed.right-0');
     
     cartModal.classList.remove('hidden');
+    cartModal.classList.remove('pointer-events-none');
     document.body.style.overflow = 'hidden';
     
     // Slide in animation
@@ -1140,11 +1141,26 @@ function closeCart() {
     
     setTimeout(() => {
         cartModal.classList.add('hidden');
+        cartModal.classList.add('pointer-events-none');
         document.body.style.overflow = '';
     }, 300);
     
     // Return focus
     document.getElementById('cart-toggle').focus();
+    
+    // Scroll to flavours section if user wants to continue shopping
+    const flavoursSection = document.getElementById('flavours');
+    if (flavoursSection) {
+        setTimeout(() => {
+            const headerHeight = 80;
+            const targetPosition = flavoursSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }, 400); // Wait for cart to close first
+    }
 }
 
 function addToCart(flavour) {
@@ -1179,6 +1195,11 @@ function addToCart(flavour) {
             btn.style.transform = '';
         }, 200);
     }
+    
+    // Open cart modal after adding item
+    setTimeout(() => {
+        openCart();
+    }, 500); // Small delay to show the success notification first
 }
 
 function removeFromCart(itemId) {
@@ -1217,33 +1238,47 @@ function updateCartDisplay() {
                 </svg>
                 <p>Your cart is empty</p>
                 <p class="text-sm mt-2">Add some delicious gelato to get started!</p>
+                <button onclick="closeCart()" class="mt-4 bg-messina-pink text-white px-6 py-2 rounded-lg hover:bg-messina-mint transition-all">
+                    🍦 Browse Flavours
+                </button>
             </div>
         `;
         cartTotal.textContent = '$0.00';
         checkoutBtn.disabled = true;
     } else {
-        cartItems.innerHTML = cart.map(item => `
-            <div class="flex items-center space-x-4 p-4 bg-messina-cream dark:bg-gray-800 rounded-xl">
-                <div class="text-2xl">${item.emoji}</div>
-                <div class="flex-1">
-                    <h4 class="font-semibold text-messina-dark dark:text-white">${item.name}</h4>
-                    <p class="text-sm text-gray-600 dark:text-gray-300">$${item.price} each</p>
+        cartItems.innerHTML = `
+            ${cart.map(item => `
+                <div class="flex items-center space-x-4 p-4 bg-messina-cream dark:bg-gray-800 rounded-xl">
+                    <div class="text-2xl">${item.emoji}</div>
+                    <div class="flex-1">
+                        <h4 class="font-semibold text-messina-dark dark:text-white">${item.name}</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">$${item.price} each</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" 
+                                class="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-500">-</button>
+                        <span class="w-8 text-center font-semibold">${item.quantity}</span>
+                        <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" 
+                                class="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-500">+</button>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" 
+                            class="text-red-500 hover:text-red-700 p-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" 
-                            class="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-500">-</button>
-                    <span class="w-8 text-center font-semibold">${item.quantity}</span>
-                    <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" 
-                            class="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-500">+</button>
+            `).join('')}
+            
+            <div class="mt-6 p-4 bg-messina-cream/50 dark:bg-gray-800/50 rounded-xl border-2 border-dashed border-messina-pink/30">
+                <div class="text-center">
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Want to add more flavours?</p>
+                    <button onclick="closeCart()" class="bg-messina-mint text-white px-4 py-2 rounded-lg font-semibold hover:bg-messina-pink transition-all hover:scale-105">
+                        🍦 Continue Shopping
+                    </button>
                 </div>
-                <button onclick="removeFromCart(${item.id})" 
-                        class="text-red-500 hover:text-red-700 p-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
             </div>
-        `).join('');
+        `;
         
         const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0);
         cartTotal.textContent = `$${total.toFixed(2)}`;
@@ -1266,6 +1301,7 @@ function updateCartCount() {
 // Make functions globally available for onclick handlers
 window.updateQuantity = updateQuantity;
 window.removeFromCart = removeFromCart;
+window.closeCart = closeCart;
 
 // Service worker registration (for future PWA capabilities)
 if ('serviceWorker' in navigator) {
