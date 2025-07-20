@@ -363,43 +363,56 @@
         </div>
     </section>
 
-    <!-- Email Capture & Social Footer -->
-    <section id="newsletter" class="py-16 bg-messina-pink text-white">
+    <!-- Social Media Footer -->
+    <section id="social-media" class="py-16 bg-messina-pink text-white">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-4xl font-bold mb-4">
-                Craving more? Get flavour drops before they melt.
+                Follow the Scoop! Connect with us on social.
             </h2>
-            <p class="text-xl mb-8 opacity-90">
-                Be the first to know about limited drops, new flavours, and exclusive events.
+            <p class="text-xl mb-12 opacity-90">
+                Get behind-the-scenes content, flavour drops, and daily dose of gelato goodness.
             </p>
             
-            <form id="newsletter-form" class="max-w-md mx-auto mb-12">
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <input 
-                        type="email" 
-                        placeholder="your.email@example.com" 
-                        required
-                        class="flex-1 px-6 py-4 rounded-full text-messina-dark focus:outline-none focus:ring-4 focus:ring-white/30"
-                        aria-label="Email address for newsletter signup"
-                    >
-                    <button 
-                        type="submit" 
-                        class="bg-white text-messina-pink px-8 py-4 rounded-full font-semibold hover:bg-messina-cream transition-all duration-300 hover:scale-105 shadow-lg"
-                    >
-                        <span class="sr-only">Subscribe to newsletter</span>
-                        Get Scoops 🍦
-                    </button>
-                </div>
-            </form>
-            
-            <!-- Social Links -->
-            <div class="flex justify-center space-x-6 mb-8">
-                <a href="#" class="text-2xl hover:scale-110 transition-transform" aria-label="Follow us on Instagram">📷</a>
-                <a href="#" class="text-2xl hover:scale-110 transition-transform" aria-label="Follow us on TikTok">🎵</a>
-                <a href="#" class="text-2xl hover:scale-110 transition-transform" aria-label="Follow us on Facebook">📘</a>
-                <a href="#" class="text-2xl hover:scale-110 transition-transform" aria-label="Follow us on Twitter">🐦</a>
+            <!-- Social Media Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/gelatomessina" target="_blank" rel="noopener noreferrer" 
+                   class="group bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📷</div>
+                    <h3 class="text-xl font-bold mb-2">Instagram</h3>
+                    <p class="text-sm opacity-90">Daily scoops & stories</p>
+                    <div class="mt-3 text-xs bg-white/20 px-3 py-1 rounded-full inline-block">@gelatomessina</div>
+                </a>
+                
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@gelatomessina" target="_blank" rel="noopener noreferrer"
+                   class="group bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🎵</div>
+                    <h3 class="text-xl font-bold mb-2">TikTok</h3>
+                    <p class="text-sm opacity-90">Viral gelato moments</p>
+                    <div class="mt-3 text-xs bg-white/20 px-3 py-1 rounded-full inline-block">@gelatomessina</div>
+                </a>
+                
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@gelatomessina" target="_blank" rel="noopener noreferrer"
+                   class="group bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📺</div>
+                    <h3 class="text-xl font-bold mb-2">YouTube</h3>
+                    <p class="text-sm opacity-90">Making magic videos</p>
+                    <div class="mt-3 text-xs bg-white/20 px-3 py-1 rounded-full inline-block">@gelatomessina</div>
+                </a>
+                
+                <!-- Pinterest -->
+                <a href="https://www.pinterest.com/gelatomessina" target="_blank" rel="noopener noreferrer"
+                   class="group bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:scale-105 hover:shadow-2xl border border-white/20">
+                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📌</div>
+                    <h3 class="text-xl font-bold mb-2">Pinterest</h3>
+                    <p class="text-sm opacity-90">Recipe inspiration</p>
+                    <div class="mt-3 text-xs bg-white/20 px-3 py-1 rounded-full inline-block">@gelatomessina</div>
+                </a>
             </div>
             
+            <!-- Footer -->
             <div class="border-t border-white/20 pt-8 text-sm opacity-75">
                 <p>&copy; 2025 Gelato Messina. Made with 💖 in Australia.</p>
                 <p class="mt-2">

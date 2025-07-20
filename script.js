@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initCarousel();
     initModals();
     initUGC();
-    initNewsletter();
+    initSocialMedia();
     initScrollEffects();
     initAccessibility();
 });
@@ -673,36 +673,39 @@ function getRandomGradient() {
     return gradients[Math.floor(Math.random() * gradients.length)];
 }
 
-// Newsletter form
-function initNewsletter() {
-    const form = document.getElementById('newsletter-form');
+// Social media interactions
+function initSocialMedia() {
+    const socialLinks = document.querySelectorAll('#social-media a');
     
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = form.querySelector('input[type="email"]').value;
-        
-        // Simulate API call
-        const button = form.querySelector('button');
-        const originalText = button.innerHTML;
-        
-        button.innerHTML = 'Subscribing...';
-        button.disabled = true;
-        button.classList.add('loading');
-        
-        setTimeout(() => {
-            button.innerHTML = 'Subscribed! 🍦';
-            button.classList.remove('loading');
-            button.classList.add('success');
+    socialLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const platform = link.querySelector('h3').textContent;
             
-            showNotification(`🎉 Welcome to the Messina family! Check your email for a special welcome offer.`);
+            // Add visual feedback
+            const icon = link.querySelector('div:first-child');
+            icon.style.transform = 'scale(1.2) rotate(10deg)';
             
             setTimeout(() => {
-                button.innerHTML = originalText;
-                button.disabled = false;
-                button.classList.remove('success');
-                form.reset();
-            }, 3000);
-        }, 2000);
+                icon.style.transform = '';
+            }, 300);
+            
+            // Show notification
+            showNotification(`🚀 Opening ${platform}... Follow us for daily gelato goodness!`);
+            
+            // Track social media clicks (for analytics)
+            console.log(`📱 Social media click: ${platform}`);
+        });
+        
+        // Add hover effects
+        link.addEventListener('mouseenter', () => {
+            const icon = link.querySelector('div:first-child');
+            icon.style.filter = 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))';
+        });
+        
+        link.addEventListener('mouseleave', () => {
+            const icon = link.querySelector('div:first-child');
+            icon.style.filter = '';
+        });
     });
 }
 
