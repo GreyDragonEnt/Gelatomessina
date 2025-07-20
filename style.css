@@ -455,6 +455,55 @@ select:focus-visible {
     top: 6px;
 }
 
+/* Shopping Cart Styles */
+#cart-modal .fixed.right-0 {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.get-it-now-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.get-it-now-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.get-it-now-btn:hover::before {
+    left: 100%;
+}
+
+/* Cart animation for added items */
+@keyframes cart-bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.cart-item-added {
+    animation: cart-bounce 0.3s ease-in-out;
+}
+
+/* Cart count badge animation */
+#cart-count {
+    animation: cart-bounce 0.3s ease-in-out;
+}
+
+/* Success notification specific styling */
+.notification.success {
+    background: linear-gradient(135deg, #4ECDC4, #6BCF7F);
+}
+
 /* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
     .animate-float,

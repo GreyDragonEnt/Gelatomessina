@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSocialMedia();
     initScrollEffects();
     initAccessibility();
+    initShoppingCart();
 });
 
 // Hero Video and Image Management
@@ -207,6 +208,7 @@ function initFlavourCards() {
     flavours.forEach((flavour, index) => {
         const card = document.createElement('div');
         card.className = 'flavour-card bg-white dark:bg-messina-dark p-6 rounded-2xl shadow-lg';
+        const price = 6.50 + (Math.random() * 2); // Random price between $6.50-$8.50
         card.innerHTML = `
             <div class="relative mb-6 rounded-xl overflow-hidden">
                 <img src="${flavour.image}" alt="${flavour.name} gelato" class="w-full h-48 object-cover" loading="lazy">
@@ -228,6 +230,13 @@ function initFlavourCards() {
                     <div class="heat-bar absolute left-0 top-0 h-full rounded-full" 
                          style="width: ${flavour.heat}%; animation-delay: ${index * 0.2}s;"></div>
                 </div>
+                <div class="flex justify-between items-center pt-2">
+                    <span class="text-xl font-bold text-messina-pink">$${price.toFixed(2)}</span>
+                    <button class="get-it-now-btn bg-messina-pink text-white px-4 py-2 rounded-lg font-semibold hover:bg-messina-mint transition-all hover:scale-105" 
+                            data-flavour='${JSON.stringify({...flavour, price: price.toFixed(2)})}'>
+                        🍦 Get it Now
+                    </button>
+                </div>
             </div>
         `;
         
@@ -248,9 +257,19 @@ function initFlavourCards() {
             tooltip.classList.remove('show');
         });
         
-        // Click handler for more info
-        card.addEventListener('click', () => {
-            showNotification(`🍦 ${flavour.name} - ${flavour.description}`);
+        // Add to cart button handler
+        const getItNowBtn = card.querySelector('.get-it-now-btn');
+        getItNowBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card click
+            const flavourData = JSON.parse(e.target.dataset.flavour);
+            addToCart(flavourData);
+        });
+        
+        // Click handler for more info (only on card, not button)
+        card.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('get-it-now-btn')) {
+                showNotification(`🍦 ${flavour.name} - ${flavour.description}`);
+            }
         });
         
         container.appendChild(card);
@@ -476,7 +495,7 @@ function initQuiz() {
     
     function renderQuestion() {
         const question = questions[currentQuestion];
-        const progress = ((currentQuestion + 1) / questions.length) * 100;
+        const progress = (currentQuestion / questions.length) * 100; // Changed: show progress based on completed questions
         
         container.innerHTML = `
             <div class="mb-6">
@@ -505,7 +524,10 @@ function initQuiz() {
         container.querySelectorAll('.quiz-option').forEach(button => {
             button.addEventListener('click', (e) => {
                 const personality = e.currentTarget.dataset.personality;
+                console.log(`Answer selected: ${personality} for question ${currentQuestion + 1}`);
+                
                 answers.push(personality);
+                console.log('Current answers array:', answers);
                 
                 // Visual feedback
                 container.querySelectorAll('.quiz-option').forEach(btn => btn.classList.remove('selected'));
@@ -516,6 +538,7 @@ function initQuiz() {
                     if (currentQuestion < questions.length) {
                         renderQuestion();
                     } else {
+                        console.log('Quiz completed, showing results...');
                         showResult();
                     }
                 }, 600);
@@ -524,12 +547,34 @@ function initQuiz() {
     }
     
     function showResult() {
+        // Debug: Check if answers were collected
+        console.log('Quiz answers collected:', answers);
+        
         // Calculate personality based on most frequent answer
         const counts = {};
         answers.forEach(answer => counts[answer] = (counts[answer] || 0) + 1);
-        const winningPersonality = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
         
-        const result = personalities[winningPersonality];
+        console.log('Personality counts:', counts);
+        
+        // Handle case where no answers were recorded (fallback)
+        if (Object.keys(counts).length === 0) {
+            console.warn('No answers recorded, using default personality');
+            const winningPersonality = 'classic'; // Default fallback
+            const result = personalities[winningPersonality];
+        } else {
+            var winningPersonality = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            var result = personalities[winningPersonality];
+        }
+        
+        console.log('Winning personality:', winningPersonality);
+        console.log('Result object:', result);
+        
+        // Extra safety check
+        if (!result) {
+            console.error('Result is undefined, using fallback');
+            result = personalities['classic'];
+            winningPersonality = 'classic';
+        }
         
         container.innerHTML = `
             <div class="text-center">
@@ -557,16 +602,23 @@ function initQuiz() {
             </div>
         `;
         
-        // Add event handlers
-        document.getElementById('share-result').addEventListener('click', () => {
-            showNotification('📱 Opening Instagram share... (demo)');
-        });
+        // Add event handlers with error checking
+        const shareBtn = document.getElementById('share-result');
+        const retakeBtn = document.getElementById('retake-quiz');
         
-        document.getElementById('retake-quiz').addEventListener('click', () => {
-            currentQuestion = 0;
-            answers = [];
-            renderQuestion();
-        });
+        if (shareBtn) {
+            shareBtn.addEventListener('click', () => {
+                showNotification('📱 Opening Instagram share... (demo)');
+            });
+        }
+        
+        if (retakeBtn) {
+            retakeBtn.addEventListener('click', () => {
+                currentQuestion = 0;
+                answers = [];
+                renderQuestion();
+            });
+        }
     }
     
     // Start the quiz
@@ -1016,6 +1068,204 @@ window.addEventListener('error', (e) => {
     console.error('🚨 JavaScript error:', e.error);
     showNotification('Something went wrong. Please refresh the page.', 'error');
 });
+
+// Shopping Cart System
+let cart = JSON.parse(localStorage.getItem('messinaCart')) || [];
+
+function initShoppingCart() {
+    const cartToggle = document.getElementById('cart-toggle');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCartBtn = document.getElementById('close-cart');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    
+    // Cart toggle button
+    cartToggle.addEventListener('click', () => {
+        openCart();
+    });
+    
+    // Close cart button
+    closeCartBtn.addEventListener('click', () => {
+        closeCart();
+    });
+    
+    // Close on backdrop click
+    cartModal.addEventListener('click', (e) => {
+        if (e.target === cartModal) {
+            closeCart();
+        }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !cartModal.classList.contains('hidden')) {
+            closeCart();
+        }
+    });
+    
+    // Checkout button
+    checkoutBtn.addEventListener('click', () => {
+        if (cart.length > 0) {
+            showNotification('🎉 Redirecting to checkout... (demo)', 'success');
+            // In real implementation, redirect to checkout page
+        }
+    });
+    
+    // Initialize cart display
+    updateCartDisplay();
+    updateCartCount();
+}
+
+function openCart() {
+    const cartModal = document.getElementById('cart-modal');
+    const cartSidebar = cartModal.querySelector('.fixed.right-0');
+    
+    cartModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    
+    // Slide in animation
+    setTimeout(() => {
+        cartSidebar.classList.remove('translate-x-full');
+    }, 10);
+    
+    // Focus management
+    document.getElementById('close-cart').focus();
+}
+
+function closeCart() {
+    const cartModal = document.getElementById('cart-modal');
+    const cartSidebar = cartModal.querySelector('.fixed.right-0');
+    
+    // Slide out animation
+    cartSidebar.classList.add('translate-x-full');
+    
+    setTimeout(() => {
+        cartModal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }, 300);
+    
+    // Return focus
+    document.getElementById('cart-toggle').focus();
+}
+
+function addToCart(flavour) {
+    // Check if item already exists in cart
+    const existingItem = cart.find(item => item.name === flavour.name);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            ...flavour,
+            quantity: 1,
+            id: Date.now() // Simple ID generation
+        });
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('messinaCart', JSON.stringify(cart));
+    
+    // Update UI
+    updateCartDisplay();
+    updateCartCount();
+    
+    // Show success notification
+    showNotification(`🍦 ${flavour.name} added to cart!`, 'success');
+    
+    // Add visual feedback to button
+    const btn = document.querySelector(`[data-flavour*="${flavour.name}"]`);
+    if (btn) {
+        btn.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            btn.style.transform = '';
+        }, 200);
+    }
+}
+
+function removeFromCart(itemId) {
+    cart = cart.filter(item => item.id !== itemId);
+    localStorage.setItem('messinaCart', JSON.stringify(cart));
+    updateCartDisplay();
+    updateCartCount();
+    showNotification('Item removed from cart', 'info');
+}
+
+function updateQuantity(itemId, newQuantity) {
+    if (newQuantity <= 0) {
+        removeFromCart(itemId);
+        return;
+    }
+    
+    const item = cart.find(item => item.id === itemId);
+    if (item) {
+        item.quantity = newQuantity;
+        localStorage.setItem('messinaCart', JSON.stringify(cart));
+        updateCartDisplay();
+        updateCartCount();
+    }
+}
+
+function updateCartDisplay() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9"/>
+                </svg>
+                <p>Your cart is empty</p>
+                <p class="text-sm mt-2">Add some delicious gelato to get started!</p>
+            </div>
+        `;
+        cartTotal.textContent = '$0.00';
+        checkoutBtn.disabled = true;
+    } else {
+        cartItems.innerHTML = cart.map(item => `
+            <div class="flex items-center space-x-4 p-4 bg-messina-cream dark:bg-gray-800 rounded-xl">
+                <div class="text-2xl">${item.emoji}</div>
+                <div class="flex-1">
+                    <h4 class="font-semibold text-messina-dark dark:text-white">${item.name}</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">$${item.price} each</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" 
+                            class="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-500">-</button>
+                    <span class="w-8 text-center font-semibold">${item.quantity}</span>
+                    <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" 
+                            class="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-500">+</button>
+                </div>
+                <button onclick="removeFromCart(${item.id})" 
+                        class="text-red-500 hover:text-red-700 p-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        `).join('');
+        
+        const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0);
+        cartTotal.textContent = `$${total.toFixed(2)}`;
+        checkoutBtn.disabled = false;
+    }
+}
+
+function updateCartCount() {
+    const cartCount = document.getElementById('cart-count');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    if (totalItems > 0) {
+        cartCount.textContent = totalItems;
+        cartCount.classList.remove('hidden');
+    } else {
+        cartCount.classList.add('hidden');
+    }
+}
+
+// Make functions globally available for onclick handlers
+window.updateQuantity = updateQuantity;
+window.removeFromCart = removeFromCart;
 
 // Service worker registration (for future PWA capabilities)
 if ('serviceWorker' in navigator) {

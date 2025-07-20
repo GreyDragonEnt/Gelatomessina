@@ -99,6 +99,15 @@
                 <a href="#sustainability" class="hover:text-messina-pink transition-colors">Sustainability</a>
                 <a href="#stores" class="hover:text-messina-pink transition-colors">Stores</a>
             </div>
+            <div class="flex items-center space-x-4">
+                <!-- Shopping Cart Button -->
+                <button id="cart-toggle" class="relative hover:text-messina-pink transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9M17 21a2 2 0 100-4 2 2 0 000 4zM9 21a2 2 0 100-4 2 2 0 000 4z"/>
+                    </svg>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-messina-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -497,6 +506,54 @@
             </div>
         </div>
     </section>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/50 z-50 hidden">
+        <div class="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-messina-dark shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out">
+            <div class="flex flex-col h-full">
+                <!-- Cart Header -->
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-messina-dark dark:text-white">🛒 Your Cart</h2>
+                        <button id="close-cart" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cart Items -->
+                <div class="flex-1 overflow-y-auto p-6">
+                    <div id="cart-items" class="space-y-4">
+                        <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                            <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9"/>
+                            </svg>
+                            <p>Your cart is empty</p>
+                            <p class="text-sm mt-2">Add some delicious gelato to get started!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Footer -->
+                <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center text-lg font-semibold">
+                            <span class="text-messina-dark dark:text-white">Total:</span>
+                            <span id="cart-total" class="text-messina-pink">$0.00</span>
+                        </div>
+                    </div>
+                    <button id="checkout-btn" class="w-full bg-messina-pink text-white py-3 rounded-xl font-semibold hover:bg-messina-mint transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        🍦 Checkout
+                    </button>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 text-center mt-3">
+                        Pickup available at selected store locations
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- JavaScript -->
     <script src="script.js"></script>
