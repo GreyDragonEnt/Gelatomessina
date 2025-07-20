@@ -890,40 +890,9 @@ function initSocialMedia() {
     });
 }
 
-// Smooth scroll and scroll effects
+// Scroll effects (parallax and smooth scroll removed to prevent page sliding)
 function initScrollEffects() {
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerHeight = 80; // Account for fixed header
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-    
-    // Parallax effect for hero background
-    const heroImage = document.getElementById('hero-bg');
-    const heroVideo = document.getElementById('hero-video');
-    
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const parallaxSpeed = 0.5;
-        
-        if (heroImage) {
-            heroImage.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
-        }
-        if (heroVideo) {
-            heroVideo.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
-        }
-    });
+    // Note: Removed smooth scroll and parallax effects that were causing unwanted page sliding
     
     // Intersection Observer for animations
     const observerOptions = {
