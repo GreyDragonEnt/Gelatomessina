@@ -1,0 +1,451 @@
+/* Custom CSS for Gelato Messina Website */
+
+/* Animation keyframes */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heat-pulse {
+    0%, 100% {
+        transform: scaleX(0.3);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+@keyframes card-hover {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        transform: translateY(-5px) scale(1.02);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2) rotate(180deg);
+    }
+}
+
+/* Hero section enhancements */
+#hero {
+    position: relative;
+    /* Fallback background in case image doesn't load */
+    background: linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 50%, #2D1B69 100%);
+}
+
+#hero-bg {
+    /* Ensure image takes priority when loaded */
+    z-index: 1;
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 107, 157, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(78, 205, 196, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+#hero .relative {
+    z-index: 10;
+}
+
+/* Enhanced floating animations */
+.animate-sparkle {
+    animation: sparkle 4s ease-in-out infinite;
+}
+
+/* Better text shadows for hero content */
+#hero h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 0 0 20px rgba(255, 107, 157, 0.3);
+}
+
+#hero p {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Utility classes */
+.animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FF6B9D;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #4ECDC4;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Flavour card styles */
+.flavour-card {
+    min-width: 320px;
+    max-width: 350px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.flavour-card:hover {
+    animation: card-hover 0.3s ease forwards;
+}
+
+.flavour-card img {
+    filter: saturate(1.1) contrast(1.05) brightness(1.02);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.flavour-card:hover img {
+    filter: saturate(1.3) contrast(1.1) brightness(1.05);
+    transform: scale(1.05);
+}
+
+.heat-bar {
+    height: 6px;
+    background: linear-gradient(90deg, #FF6B9D, #4ECDC4);
+    border-radius: 3px;
+    animation: heat-pulse 2s ease-in-out infinite;
+}
+
+.heat-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.heat-tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Quiz styles */
+.quiz-option {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.quiz-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 157, 0.2);
+}
+
+.quiz-option.selected {
+    background: linear-gradient(135deg, #FF6B9D, #4ECDC4);
+    color: white;
+    transform: scale(1.05);
+}
+
+.quiz-progress {
+    transition: width 0.5s ease;
+}
+
+/* Carousel styles */
+.carousel-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.carousel-dot {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.carousel-dot:hover {
+    transform: scale(1.2);
+}
+
+/* UGC Grid styles */
+.ugc-post {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ugc-post:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.ugc-post img {
+    filter: saturate(1.1) contrast(1.05) brightness(1.02);
+    transition: filter 0.3s ease;
+}
+
+.ugc-post:hover img {
+    filter: saturate(1.3) contrast(1.1) brightness(1.05);
+}
+
+.ugc-post::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.3), rgba(78, 205, 196, 0.3));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.ugc-post:hover::before {
+    opacity: 1;
+}
+
+.ugc-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    z-index: 2;
+}
+
+.ugc-post:hover .ugc-overlay {
+    transform: translateY(0);
+}
+
+/* Modal styles */
+.modal-backdrop {
+    backdrop-filter: blur(8px);
+    animation: fade-in-up 0.3s ease-out;
+}
+
+/* Form styles */
+input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus indicators */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid #FF6B9D;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .bg-messina-pink {
+        background-color: #D64570;
+    }
+    
+    .bg-messina-mint {
+        background-color: #2BA59F;
+    }
+    
+    .text-messina-pink {
+        color: #D64570;
+    }
+    
+    .text-messina-mint {
+        color: #2BA59F;
+    }
+}
+
+/* Print styles */
+@media print {
+    .fixed,
+    #theme-toggle,
+    nav,
+    video,
+    .animate-float,
+    .animate-bounce-slow {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    a::after {
+        content: " (" attr(href) ")";
+        font-size: 12px;
+        color: #666;
+    }
+}
+
+/* Responsive video container */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.video-container iframe,
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid #FF6B9D;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Success states */
+.success {
+    background: linear-gradient(135deg, #4ECDC4, #45B7B8);
+    color: white;
+}
+
+.success::before {
+    content: '✓';
+    margin-right: 8px;
+}
+
+/* Error states */
+.error {
+    background: linear-gradient(135deg, #FF6B9D, #E55A4F);
+    color: white;
+}
+
+.error::before {
+    content: '⚠';
+    margin-right: 8px;
+}
+
+/* Notification styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+/* Skip link for accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #FF6B9D;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    z-index: 1000;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .animate-float,
+    .animate-bounce-slow,
+    .animate-pulse-slow,
+    .animate-fade-in-up {
+        animation: none;
+    }
+    
+    * {
+        transition-duration: 0.01ms !important;
+    }
+}

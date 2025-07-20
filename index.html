@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelato Messina - Made-from-scratch. Scoops of joy.</title>
+    <meta name="description" content="Cult Aussie gelato brand serving chef-driven flavours with farm-to-cone sustainability. Experience limited-drop culture and scoops of joy.">
+    
+    <!-- 
+    INTEGRATION NOTES for Gelato Messina Instagram Content:
+    
+    1. Hero Video: Replace placeholder video sources with actual Instagram Reel URLs
+       - Use Instagram Basic Display API or manual video uploads
+       - Recommended: Scooping gelato, store atmosphere, or flavour making process
+    
+    2. Farm Carousel: Current images are from Unsplash as placeholders
+       - Replace with actual farm partner photos from @gelatomessina Instagram
+       - Use Instagram API to fetch tagged posts from farm partners
+    
+    3. UGC Section: Currently using food photography placeholders
+       - Integrate Instagram Basic Display API for #MessinaMixUp hashtag
+       - Or manually curate best posts and upload images
+       - Consider Instagram embedding for real social proof
+    
+    4. Flavour Cards: Using generic gelato images
+       - Replace with actual Gelato Messina flavour photography
+       - Use Instagram posts showcasing specific flavours
+       - Maintain consistent lighting and styling
+    -->
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        messina: {
+                            pink: '#FF6B9D',
+                            mint: '#4ECDC4',
+                            cream: '#FFF8E7',
+                            chocolate: '#8B4513',
+                            dark: '#2D1B69'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'heat-bar': 'heat-bar 2s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'heat-bar': {
+                            '0%': { width: '20%' },
+                            '50%': { width: '100%' },
+                            '100%': { width: '20%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍦</text></svg>">
+</head>
+<body class="bg-messina-cream dark:bg-messina-dark text-messina-dark dark:text-messina-cream transition-colors duration-300">
+    
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="fixed top-4 right-4 z-50 p-3 bg-messina-pink hover:bg-messina-mint rounded-full shadow-lg transition-all duration-300 hover:scale-110" aria-label="Toggle dark mode">
+        <span class="sr-only">Toggle theme</span>
+        <svg id="theme-icon-light" class="w-6 h-6 text-white hidden" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+        </svg>
+        <svg id="theme-icon-dark" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 dark:bg-messina-dark/80 backdrop-blur-md z-40 border-b border-messina-pink/20">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-messina-pink">
+                🍦 Messina
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#flavours" class="hover:text-messina-pink transition-colors">Flavours</a>
+                <a href="#quiz" class="hover:text-messina-pink transition-colors">Quiz</a>
+                <a href="#sustainability" class="hover:text-messina-pink transition-colors">Sustainability</a>
+                <a href="#stores" class="hover:text-messina-pink transition-colors">Stores</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image/Video -->
+        <div class="absolute inset-0">
+            <!-- Hero Background Image -->
+            <img id="hero-bg" 
+                 src="https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80" 
+                 alt="Colorful gelato scoops in waffle cones" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000"
+                 loading="eager">
+            
+            <!-- Hero Video Background (loads after image) -->
+            <video id="hero-video" autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+                <!-- Placeholder: Replace with actual Gelato Messina Instagram video URLs -->
+                <source src="https://player.vimeo.com/external/371433846.sd.mp4?s=236a2691de19e5f9ef893cf04b145b62c42f1e4a&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+                <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+            </video>
+            
+            <!-- Overlay for better text readability -->
+            <div class="absolute inset-0 bg-gradient-to-br from-messina-dark/60 via-messina-pink/40 to-messina-mint/50"></div>
+            
+            <!-- Animated pattern overlay -->
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"><animate attributeName="r" values="1;3;1" dur="3s" repeatCount="indefinite"/></circle><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.1"><animate attributeName="r" values="0.5;2.5;0.5" dur="4s" repeatCount="indefinite"/></circle><circle cx="60" cy="80" r="2.5" fill="white" opacity="0.1"><animate attributeName="r" values="1.5;3.5;1.5" dur="2s" repeatCount="indefinite"/></circle></svg>')] animate-pulse-slow opacity-30"></div>
+        </div>
+        
+        <!-- Animated Gelato Scoops and Decorative Elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <!-- Floating gelato scoops -->
+            <div class="absolute top-20 left-10 text-6xl animate-float opacity-40">🍦</div>
+            <div class="absolute top-40 right-20 text-5xl animate-bounce-slow opacity-30">🍨</div>
+            <div class="absolute bottom-32 left-1/4 text-7xl animate-float opacity-35" style="animation-delay: 1s;">🧁</div>
+            <div class="absolute bottom-20 right-1/3 text-4xl animate-bounce-slow opacity-40" style="animation-delay: 2s;">🍦</div>
+            
+            <!-- Instagram-style decorative elements -->
+            <div class="absolute top-32 right-10 text-3xl animate-float opacity-25" style="animation-delay: 0.5s;">✨</div>
+            <div class="absolute top-60 left-20 text-2xl animate-bounce-slow opacity-30" style="animation-delay: 1.5s;">💖</div>
+            <div class="absolute bottom-40 right-20 text-3xl animate-float opacity-25" style="animation-delay: 2.5s;">�</div>
+            <div class="absolute top-1/3 left-10 text-2xl animate-bounce-slow opacity-20" style="animation-delay: 3s;">⭐</div>
+            
+            <!-- Larger background elements -->
+            <div class="absolute top-10 right-1/4 text-8xl animate-pulse-slow opacity-10" style="animation-delay: 1s;">�🍦</div>
+            <div class="absolute bottom-10 left-10 text-9xl animate-pulse-slow opacity-8" style="animation-delay: 2s;">🧁</div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
+                Made-from-scratch.<br>
+                <span class="text-messina-cream">Scoops of joy.</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90 animate-fade-in-up" style="animation-delay: 0.5s;">
+                Cult Aussie gelato. Chef-driven flavours. Farm-to-cone sustainability.
+            </p>
+            
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style="animation-delay: 1s;">
+                <a href="#stores" class="group bg-white text-messina-dark px-8 py-4 rounded-full font-semibold hover:bg-messina-cream transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl border-2 border-white/20">
+                    <span class="sr-only">Navigate to store locator section</span>
+                    <span class="inline-flex items-center">
+                        📍 Find a Store
+                        <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </span>
+                </a>
+                <a href="#quiz" class="group bg-messina-mint text-white px-8 py-4 rounded-full font-semibold hover:bg-messina-pink transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl border-2 border-white/20">
+                    <span class="sr-only">Navigate to flavour personality quiz</span>
+                    <span class="inline-flex items-center">
+                        🎯 Take the Flavour Quiz
+                        <svg class="w-4 h-4 ml-2 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Trending Flavours Heat-map -->
+    <section id="flavours" class="py-16 bg-white dark:bg-messina-dark">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-messina-dark dark:text-white">
+                🔥 Trending Flavours
+                <span class="block text-lg font-normal text-gray-600 dark:text-gray-300 mt-2">
+                    Live heat-map of what's scooping right now
+                </span>
+            </h2>
+            
+            <div class="overflow-x-auto pb-4">
+                <div id="flavour-cards" class="flex space-x-6 min-w-max px-4">
+                    <!-- Flavour cards will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flavour Quiz -->
+    <section id="quiz" class="py-16 bg-messina-cream dark:bg-gray-900">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-4xl font-bold text-center mb-8 text-messina-dark dark:text-white">
+                🎭 Which Messina Flavour Are You?
+            </h2>
+            <p class="text-center text-gray-600 dark:text-gray-300 mb-12 text-lg">
+                Discover your gelato personality with our fun quiz!
+            </p>
+            
+            <div id="quiz-container" class="bg-white dark:bg-messina-dark rounded-2xl shadow-xl p-8">
+                <!-- Quiz content will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability Spotlight -->
+    <section id="sustainability" class="py-16 bg-messina-mint/10 dark:bg-messina-mint/5">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-messina-dark dark:text-white">
+                🌱 Sustainability Spotlight
+                <span class="block text-lg font-normal text-gray-600 dark:text-gray-300 mt-2">
+                    From farm to cone, we care about our planet
+                </span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Farm Images Carousel -->
+                <div class="relative">
+                    <div id="farm-carousel" class="relative h-80 rounded-2xl overflow-hidden shadow-xl">
+                        <!-- Carousel images will be generated by JavaScript -->
+                    </div>
+                    <div class="flex justify-center mt-4 space-x-2">
+                        <button class="carousel-dot w-3 h-3 rounded-full bg-messina-pink" data-slide="0"></button>
+                        <button class="carousel-dot w-3 h-3 rounded-full bg-gray-300" data-slide="1"></button>
+                        <button class="carousel-dot w-3 h-3 rounded-full bg-gray-300" data-slide="2"></button>
+                        <button class="carousel-dot w-3 h-3 rounded-full bg-gray-300" data-slide="3"></button>
+                    </div>
+                </div>
+                
+                <!-- Eco Actions -->
+                <div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <span class="text-2xl">🥛</span>
+                            <div>
+                                <h3 class="font-semibold text-messina-dark dark:text-white">Local Dairy Partnerships</h3>
+                                <p class="text-gray-600 dark:text-gray-300">Direct relationships with Australian dairy farms within 100km of our stores</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-2xl">♻️</span>
+                            <div>
+                                <h3 class="font-semibold text-messina-dark dark:text-white">Zero Waste Initiative</h3>
+                                <p class="text-gray-600 dark:text-gray-300">Compostable cups, spoons, and napkins. Bring your own container for 10% off!</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-2xl">🌿</span>
+                            <div>
+                                <h3 class="font-semibold text-messina-dark dark:text-white">Seasonal Sourcing</h3>
+                                <p class="text-gray-600 dark:text-gray-300">Limited flavours using peak-season Australian fruits and herbs</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-2xl">🚚</span>
+                            <div>
+                                <h3 class="font-semibold text-messina-dark dark:text-white">Carbon Neutral Delivery</h3>
+                                <p class="text-gray-600 dark:text-gray-300">Electric vehicles for local delivery and ingredient transport</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <button id="track-scoop-btn" class="mt-8 bg-messina-pink text-white px-8 py-4 rounded-full font-semibold hover:bg-messina-mint transition-all duration-300 hover:scale-105 shadow-lg">
+                        <span class="sr-only">Open ingredient origin tracking modal</span>
+                        🗺️ Track My Scoop
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Messina App Gamification -->
+    <section id="app-teaser" class="py-16 bg-white dark:bg-messina-dark">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+            <h2 class="text-4xl font-bold mb-8 text-messina-dark dark:text-white">
+                🎮 Messina Rewards
+                <span class="block text-lg font-normal text-gray-600 dark:text-gray-300 mt-2">
+                    Turn every scoop into an adventure
+                </span>
+            </h2>
+            
+            <div class="bg-messina-cream dark:bg-gray-800 rounded-2xl p-8 mb-8">
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-messina-dark dark:text-white">Progress to Free Scoop</span>
+                        <span class="text-sm text-messina-pink font-bold">3 / 10 stamps</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3">
+                        <div class="bg-gradient-to-r from-messina-pink to-messina-mint h-3 rounded-full transition-all duration-500" style="width: 30%"></div>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-messina-dark p-6 rounded-xl shadow-md">
+                        <div class="text-3xl mb-3">⭐</div>
+                        <h3 class="font-semibold mb-2 text-messina-dark dark:text-white">Try a Weekly Special</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">+1 stamp</p>
+                        <div class="mt-3 text-xs bg-messina-pink/10 text-messina-pink px-2 py-1 rounded-full inline-block">New Quest</div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-messina-dark p-6 rounded-xl shadow-md">
+                        <div class="text-3xl mb-3">♻️</div>
+                        <h3 class="font-semibold mb-2 text-messina-dark dark:text-white">Recycle Your Cup</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">+1 stamp</p>
+                        <div class="mt-3 text-xs bg-messina-mint/20 text-messina-mint px-2 py-1 rounded-full inline-block">Eco Challenge</div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-messina-dark p-6 rounded-xl shadow-md">
+                        <div class="text-3xl mb-3">🌀</div>
+                        <h3 class="font-semibold mb-2 text-messina-dark dark:text-white">Scan In-Store AR Code</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">+2 stamps</p>
+                        <div class="mt-3 text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full inline-block">AR Experience</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="bg-messina-pink text-white px-8 py-4 rounded-full font-semibold hover:bg-messina-mint transition-all duration-300 hover:scale-105 shadow-lg">
+                Download Messina App
+            </button>
+        </div>
+    </section>
+
+    <!-- UGC Strip -->
+    <section id="ugc" class="py-16 bg-messina-cream dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-messina-dark dark:text-white">
+                📸 #MessinaMixUp
+                <span class="block text-lg font-normal text-gray-600 dark:text-gray-300 mt-2">
+                    Share your scoops with the world
+                </span>
+            </h2>
+            
+            <div id="ugc-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- UGC posts will be generated by JavaScript -->
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="inline-flex items-center text-messina-pink hover:text-messina-mint font-semibold transition-colors">
+                    View all posts
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Email Capture & Social Footer -->
+    <section id="newsletter" class="py-16 bg-messina-pink text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4">
+                Craving more? Get flavour drops before they melt.
+            </h2>
+            <p class="text-xl mb-8 opacity-90">
+                Be the first to know about limited drops, new flavours, and exclusive events.
+            </p>
+            
+            <form id="newsletter-form" class="max-w-md mx-auto mb-12">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input 
+                        type="email" 
+                        placeholder="your.email@example.com" 
+                        required
+                        class="flex-1 px-6 py-4 rounded-full text-messina-dark focus:outline-none focus:ring-4 focus:ring-white/30"
+                        aria-label="Email address for newsletter signup"
+                    >
+                    <button 
+                        type="submit" 
+                        class="bg-white text-messina-pink px-8 py-4 rounded-full font-semibold hover:bg-messina-cream transition-all duration-300 hover:scale-105 shadow-lg"
+                    >
+                        <span class="sr-only">Subscribe to newsletter</span>
+                        Get Scoops 🍦
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Social Links -->
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-2xl hover:scale-110 transition-transform" aria-label="Follow us on Instagram">📷</a>
+                <a href="#" class="text-2xl hover:scale-110 transition-transform" aria-label="Follow us on TikTok">🎵</a>
+                <a href="#" class="text-2xl hover:scale-110 transition-transform" aria-label="Follow us on Facebook">📘</a>
+                <a href="#" class="text-2xl hover:scale-110 transition-transform" aria-label="Follow us on Twitter">🐦</a>
+            </div>
+            
+            <div class="border-t border-white/20 pt-8 text-sm opacity-75">
+                <p>&copy; 2025 Gelato Messina. Made with 💖 in Australia.</p>
+                <p class="mt-2">
+                    <a href="#" class="hover:text-messina-cream transition-colors">Privacy Policy</a> • 
+                    <a href="#" class="hover:text-messina-cream transition-colors">Terms of Service</a> • 
+                    <a href="#" class="hover:text-messina-cream transition-colors">Accessibility</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <!-- Track My Scoop Modal -->
+    <div id="track-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-messina-dark rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-messina-dark dark:text-white">🗺️ Track Your Scoop</h3>
+                    <button id="close-track-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-messina-cream dark:bg-gray-800 p-4 rounded-xl">
+                        <h4 class="font-semibold mb-2 text-messina-dark dark:text-white">🥛 Vanilla Bean Base</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Sunny Ridge Dairy Farm, Gippsland VIC - 87km from your store</p>
+                    </div>
+                    <div class="bg-messina-cream dark:bg-gray-800 p-4 rounded-xl">
+                        <h4 class="font-semibold mb-2 text-messina-dark dark:text-white">🍓 Strawberries</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Berry Bliss Farm, Yarra Valley VIC - 45km from your store</p>
+                    </div>
+                    <div class="bg-messina-cream dark:bg-gray-800 p-4 rounded-xl">
+                        <h4 class="font-semibold mb-2 text-messina-dark dark:text-white">🥛 Organic Cream</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Green Pastures Co-op, Mornington Peninsula VIC - 62km from your store</p>
+                    </div>
+                    <div class="bg-messina-cream dark:bg-gray-800 p-4 rounded-xl">
+                        <h4 class="font-semibold mb-2 text-messina-dark dark:text-white">🍯 Raw Honey</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Buzzworthy Apiaries, Dandenong Ranges VIC - 38km from your store</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        Average ingredient travel distance: <strong class="text-messina-pink">58km</strong>
+                    </p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                        *Distances calculated from Brighton store. Actual ingredients may vary by location.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Store Locator Section (referenced by Find a Store CTA) -->
+    <section id="stores" class="hidden py-16 bg-white dark:bg-messina-dark">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-8 text-messina-dark dark:text-white">
+                📍 Find Your Local Messina
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+                Scoop up joy at one of our cult locations across Australia
+            </p>
+            <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="bg-messina-cream dark:bg-gray-800 p-6 rounded-xl">
+                    <h3 class="font-bold text-messina-dark dark:text-white mb-2">Brighton</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">123 Chapel St, Brighton VIC</p>
+                </div>
+                <div class="bg-messina-cream dark:bg-gray-800 p-6 rounded-xl">
+                    <h3 class="font-bold text-messina-dark dark:text-white mb-2">Fitzroy</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">456 Smith St, Fitzroy VIC</p>
+                </div>
+                <div class="bg-messina-cream dark:bg-gray-800 p-6 rounded-xl">
+                    <h3 class="font-bold text-messina-dark dark:text-white mb-2">Bondi</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">789 Campbell Parade, Bondi NSW</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
