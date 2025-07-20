@@ -255,6 +255,135 @@ function initFlavourCards() {
         
         container.appendChild(card);
     });
+    
+    // Auto-sliding functionality
+    initFlavourAutoSlider(container);
+}
+
+function initFlavourAutoSlider(container) {
+    let currentPosition = 0;
+    let direction = 1; // 1 = right, -1 = left
+    const slideSpeed = 1; // pixels per step (slower for smoother movement)
+    const slideInterval = 30; // milliseconds between steps
+    const pauseDuration = 2000; // pause at ends in milliseconds
+    let isSliding = false;
+    let isPaused = false;
+    let slidingTimer = null;
+    
+    const scrollContainer = container.parentElement;
+    
+    // Get container dimensions
+    function getSlideInfo() {
+        const containerWidth = scrollContainer.clientWidth;
+        const totalWidth = container.scrollWidth;
+        const maxScroll = Math.max(0, totalWidth - containerWidth);
+        return { containerWidth, totalWidth, maxScroll };
+    }
+    
+    function smoothSlide() {
+        if (isPaused || !isSliding) return;
+        
+        const { maxScroll } = getSlideInfo();
+        
+        // If there's no need to scroll (content fits in container)
+        if (maxScroll <= 0) {
+            isSliding = false;
+            return;
+        }
+        
+        // Calculate next position
+        currentPosition += direction * slideSpeed;
+        
+        // Check if we need to reverse direction
+        if (currentPosition >= maxScroll) {
+            currentPosition = maxScroll;
+            direction = -1;
+            isSliding = false;
+            setTimeout(() => {
+                if (!isPaused) {
+                    isSliding = true;
+                    smoothSlide();
+                }
+            }, pauseDuration);
+            scrollContainer.scrollLeft = currentPosition;
+            return;
+        } else if (currentPosition <= 0) {
+            currentPosition = 0;
+            direction = 1;
+            isSliding = false;
+            setTimeout(() => {
+                if (!isPaused) {
+                    isSliding = true;
+                    smoothSlide();
+                }
+            }, pauseDuration);
+            scrollContainer.scrollLeft = currentPosition;
+            return;
+        }
+        
+        // Apply the scroll
+        scrollContainer.scrollLeft = currentPosition;
+        
+        // Continue sliding
+        slidingTimer = setTimeout(smoothSlide, slideInterval);
+    }
+    
+    function startSliding() {
+        if (isPaused) return;
+        
+        const { maxScroll } = getSlideInfo();
+        if (maxScroll <= 0) return; // Don't slide if content fits
+        
+        isSliding = true;
+        smoothSlide();
+    }
+    
+    function stopSliding() {
+        isSliding = false;
+        if (slidingTimer) {
+            clearTimeout(slidingTimer);
+            slidingTimer = null;
+        }
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        const { maxScroll } = getSlideInfo();
+        if (currentPosition > maxScroll) {
+            currentPosition = maxScroll;
+            scrollContainer.scrollLeft = currentPosition;
+        }
+    });
+    
+    // Pause on hover
+    scrollContainer.addEventListener('mouseenter', () => {
+        isPaused = true;
+        stopSliding();
+    });
+    
+    scrollContainer.addEventListener('mouseleave', () => {
+        isPaused = false;
+        setTimeout(() => {
+            if (!isPaused) {
+                startSliding();
+            }
+        }, 500);
+    });
+    
+    // Handle manual scrolling - sync position
+    scrollContainer.addEventListener('scroll', () => {
+        if (!isSliding) {
+            currentPosition = scrollContainer.scrollLeft;
+        }
+    });
+    
+    // Start the auto-sliding after a brief delay
+    setTimeout(() => {
+        const { maxScroll } = getSlideInfo();
+        if (maxScroll > 0 && !isPaused) {
+            startSliding();
+        }
+    }, 3000);
 }
 
 function getHeatDescription(heat) {

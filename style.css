@@ -139,6 +139,25 @@
     transform: scale(1.05);
 }
 
+/* Auto-sliding flavour cards container */
+#flavours .overflow-x-auto {
+    scroll-behavior: auto; /* Disable smooth scroll for auto-sliding */
+}
+
+#flavours .overflow-x-auto:hover {
+    scroll-behavior: smooth; /* Enable smooth scroll on hover */
+}
+
+/* Hide scrollbar for cleaner auto-slide appearance */
+#flavours .overflow-x-auto {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+#flavours .overflow-x-auto::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
 .heat-bar {
     height: 6px;
     background: linear-gradient(90deg, #FF6B9D, #4ECDC4);
