@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo-Earth - Modern Gen Z Design System</title>
+    <meta name="description" content="A modern, accessible website built with the Neo-Earth Gen Z color palette featuring earthy tones and vibrant accents.">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts - Modern, readable typeface -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌍%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <!-- Skip Navigation for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header Navigation -->
+    <header class="header" role="banner">
+        <nav class="nav" aria-label="Main navigation">
+            <div class="nav__container">
+                <div class="nav__brand">
+                    <a href="#" class="nav__logo" aria-label="Neo-Earth Home">
+                        <span class="nav__logo-icon">🌍</span>
+                        <span class="nav__logo-text">Neo-Earth</span>
+                    </a>
+                </div>
+                
+                <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                </button>
+                
+                <ul class="nav__menu" id="nav-menu" role="list">
+                    <li class="nav__item">
+                        <a href="#features" class="nav__link">Features</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#about" class="nav__link">About</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#contact" class="nav__link">Contact</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#cta" class="btn btn--primary nav__cta">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero__container">
+                <div class="hero__content">
+                    <h1 id="hero-title" class="hero__title">
+                        Design for the
+                        <span class="hero__title-accent">Next Generation</span>
+                    </h1>
+                    <p class="hero__description">
+                        Neo-Earth brings together earthy authenticity with vibrant Gen Z energy. 
+                        A design system that speaks to modern users while maintaining accessibility and sustainability at its core.
+                    </p>
+                    <div class="hero__actions">
+                        <a href="#features" class="btn btn--primary btn--large">
+                            Explore Features
+                        </a>
+                        <a href="#about" class="btn btn--secondary btn--large">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="hero__visual">
+                    <div class="hero__gradient-orb" aria-hidden="true"></div>
+                    <div class="hero__accent-dots" aria-hidden="true">
+                        <span class="dot dot--pistachio"></span>
+                        <span class="dot dot--lavender"></span>
+                        <span class="dot dot--cyber-lime"></span>
+                        <span class="dot dot--icy-blue"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Grid -->
+        <section id="features" class="features" aria-labelledby="features-title">
+            <div class="features__container">
+                <header class="features__header">
+                    <h2 id="features-title" class="features__title">
+                        Built for Modern Web
+                    </h2>
+                    <p class="features__subtitle">
+                        Every component follows accessibility standards and modern design principles
+                    </p>
+                </header>
+                
+                <div class="features__grid">
+                    <article class="feature-card">
+                        <div class="feature-card__icon bg-pistachio">
+                            <span role="img" aria-label="Accessibility">♿</span>
+                        </div>
+                        <h3 class="feature-card__title">Accessible First</h3>
+                        <p class="feature-card__description">
+                            WCAG 2.1 AA compliant with semantic HTML, proper ARIA labels, and keyboard navigation support.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon bg-lavender">
+                            <span role="img" aria-label="Mobile device">📱</span>
+                        </div>
+                        <h3 class="feature-card__title">Mobile-First</h3>
+                        <p class="feature-card__description">
+                            Responsive design that works flawlessly across all devices with fluid typography and spacing.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon bg-terracotta">
+                            <span role="img" aria-label="Palette">🎨</span>
+                        </div>
+                        <h3 class="feature-card__title">Gen Z Palette</h3>
+                        <p class="feature-card__description">
+                            Carefully curated colors that balance earthy authenticity with vibrant, dopamine-inducing accents.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon bg-icy-blue">
+                            <span role="img" aria-label="Fast">⚡</span>
+                        </div>
+                        <h3 class="feature-card__title">Performance</h3>
+                        <p class="feature-card__description">
+                            Optimized CSS with custom properties, minimal dependencies, and efficient animations.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon bg-cyber-lime">
+                            <span role="img" aria-label="Dark mode">🌙</span>
+                        </div>
+                        <h3 class="feature-card__title">Dark Mode</h3>
+                        <p class="feature-card__description">
+                            Automatic dark mode support that respects user preferences while maintaining contrast ratios.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon bg-sandstone">
+                            <span role="img" aria-label="Components">🧩</span>
+                        </div>
+                        <h3 class="feature-card__title">Component System</h3>
+                        <p class="feature-card__description">
+                            Modular, reusable components with consistent spacing, typography, and interaction patterns.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="about" aria-labelledby="about-title">
+            <div class="about__container">
+                <div class="about__content">
+                    <h2 id="about-title" class="about__title">
+                        Designed for Tomorrow
+                    </h2>
+                    <p class="about__description">
+                        Neo-Earth represents the intersection of sustainability and digital innovation. 
+                        Our color palette draws from nature's most grounding elements while embracing 
+                        the electric energy of Gen Z's digital-native mindset.
+                    </p>
+                    <div class="about__stats">
+                        <div class="stat">
+                            <div class="stat__number text-terracotta">100%</div>
+                            <div class="stat__label">Accessible</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat__number text-pistachio">8</div>
+                            <div class="stat__label">Core Colors</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat__number text-lavender">∞</div>
+                            <div class="stat__label">Possibilities</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about__visual">
+                    <div class="color-palette" role="img" aria-label="Neo-Earth color palette demonstration">
+                        <div class="color-swatch bg-cocoa-core" title="Cocoa Core - Primary Base"></div>
+                        <div class="color-swatch bg-sandstone" title="Sandstone - Secondary Neutral"></div>
+                        <div class="color-swatch bg-terracotta" title="Terracotta - Hero Accent"></div>
+                        <div class="color-swatch bg-lavender" title="Lavender - Pop Accent"></div>
+                        <div class="color-swatch bg-pistachio" title="Pistachio - Fresh Accent"></div>
+                        <div class="color-swatch bg-cyber-lime" title="Cyber Lime - Dopamine Flash"></div>
+                        <div class="color-swatch bg-icy-blue" title="Icy Blue - Cool Contrast"></div>
+                        <div class="color-swatch bg-char" title="Char - Anchor (near-black)"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section id="cta" class="cta" aria-labelledby="cta-title">
+            <div class="cta__container">
+                <div class="cta__content">
+                    <h2 id="cta-title" class="cta__title">
+                        Ready to Build Something Amazing?
+                    </h2>
+                    <p class="cta__description">
+                        Start using the Neo-Earth design system today and create experiences 
+                        that resonate with the next generation of users.
+                    </p>
+                    <div class="cta__actions">
+                        <a href="#" class="btn btn--primary btn--large">
+                            Download Starter Kit
+                        </a>
+                        <a href="#" class="btn btn--outline btn--large">
+                            View Documentation
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer__container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <div class="footer__logo">
+                        <span class="footer__logo-icon">🌍</span>
+                        <span class="footer__logo-text">Neo-Earth</span>
+                    </div>
+                    <p class="footer__tagline">
+                        Sustainable design for the digital age
+                    </p>
+                </div>
+                
+                <nav class="footer__nav" aria-label="Footer navigation">
+                    <h3 class="footer__nav-title">Quick Links</h3>
+                    <ul class="footer__nav-list" role="list">
+                        <li><a href="#features" class="footer__nav-link">Features</a></li>
+                        <li><a href="#about" class="footer__nav-link">About</a></li>
+                        <li><a href="#contact" class="footer__nav-link">Contact</a></li>
+                        <li><a href="#" class="footer__nav-link">Documentation</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="footer__social">
+                    <h3 class="footer__social-title">Connect</h3>
+                    <div class="footer__social-links">
+                        <a href="#" class="footer__social-link" aria-label="GitHub">
+                            <span role="img" aria-hidden="true">🐙</span>
+                        </a>
+                        <a href="#" class="footer__social-link" aria-label="Twitter">
+                            <span role="img" aria-hidden="true">🐦</span>
+                        </a>
+                        <a href="#" class="footer__social-link" aria-label="Discord">
+                            <span role="img" aria-hidden="true">💬</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    © 2025 Neo-Earth Design System. Built with accessibility and sustainability in mind.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript for Interactive Elements -->
+    <script>
+        // Mobile Navigation Toggle
+        const navToggle = document.querySelector('.nav__toggle');
+        const navMenu = document.querySelector('.nav__menu');
+        
+        navToggle.addEventListener('click', () => {
+            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('nav__menu--open');
+            navToggle.classList.toggle('nav__toggle--active');
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .about__content, .cta__content').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Keyboard Navigation Enhancement
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('nav__menu--open')) {
+                navToggle.setAttribute('aria-expanded', 'false');
+                navMenu.classList.remove('nav__menu--open');
+                navToggle.classList.remove('nav__toggle--active');
+                navToggle.focus();
+            }
+        });
+    </script>
+</body>
+</html>

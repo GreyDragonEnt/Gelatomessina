@@ -43,7 +43,7 @@ function initHeroVideo() {
                 console.log('❌ Hero image failed to load, using fallback');
                 // Create a fallback gradient background
                 const fallbackDiv = document.createElement('div');
-                fallbackDiv.className = 'absolute inset-0 bg-gradient-to-br from-messina-pink via-messina-mint to-messina-dark';
+                fallbackDiv.className = 'absolute inset-0 bg-gradient-to-br from-neoearth-terracotta via-neoearth-pistachio to-neoearth-cocoa';
                 heroImage.parentElement.appendChild(fallbackDiv);
                 heroImage.style.display = 'none';
             });
@@ -207,32 +207,32 @@ function initFlavourCards() {
     
     flavours.forEach((flavour, index) => {
         const card = document.createElement('div');
-        card.className = 'flavour-card bg-white dark:bg-messina-dark p-6 rounded-2xl shadow-lg';
+        card.className = 'flavour-card bg-white dark:bg-neoearth-charcoal p-6 rounded-2xl shadow-lg';
         const price = 6.50 + (Math.random() * 2); // Random price between $6.50-$8.50
         card.innerHTML = `
             <div class="relative mb-6 rounded-xl overflow-hidden">
                 <img src="${flavour.image}" alt="${flavour.name} gelato" class="w-full h-48 object-cover" loading="lazy">
-                <div class="absolute top-3 right-3 text-3xl bg-white/95 dark:bg-messina-dark/95 rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
+                <div class="absolute top-3 right-3 text-3xl bg-white/95 dark:bg-neoearth-charcoal/95 rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
                     ${flavour.emoji}
                 </div>
                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
                     <div class="text-white text-sm font-medium opacity-90">Heat: ${flavour.heat}°</div>
                 </div>
             </div>
-            <h3 class="font-bold text-xl mb-3 text-messina-dark dark:text-white">${flavour.name}</h3>
+            <h3 class="font-bold text-xl mb-3 text-neoearth-charcoal dark:text-white">${flavour.name}</h3>
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">${flavour.description}</p>
             <div class="space-y-3">
                 <div class="flex justify-between items-center">
-                    <span class="text-sm font-medium text-messina-dark dark:text-white">Trending Score</span>
-                    <span class="text-lg font-bold text-messina-pink">${flavour.heat}°</span>
+                    <span class="text-sm font-medium text-neoearth-charcoal dark:text-white">Trending Score</span>
+                    <span class="text-lg font-bold text-neoearth-coral">${flavour.heat}°</span>
                 </div>
                 <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3 relative overflow-hidden">
                     <div class="heat-bar absolute left-0 top-0 h-full rounded-full" 
                          style="width: ${flavour.heat}%; animation-delay: ${index * 0.2}s;"></div>
                 </div>
                 <div class="flex justify-between items-center pt-2">
-                    <span class="text-xl font-bold text-messina-pink">$${price.toFixed(2)}</span>
-                    <button class="get-it-now-btn bg-messina-pink text-white px-4 py-2 rounded-lg font-semibold hover:bg-messina-mint transition-all hover:scale-105" 
+                    <span class="text-xl font-bold text-neoearth-coral">$${price.toFixed(2)}</span>
+                    <button class="get-it-now-btn bg-neoearth-terracotta text-white px-4 py-2 rounded-lg font-semibold hover:bg-neoearth-cyberlime transition-all hover:scale-105" 
                             data-flavour='${JSON.stringify({...flavour, price: price.toFixed(2)})}'>
                         🍦 Get it Now
                     </button>
@@ -500,21 +500,21 @@ function initQuiz() {
         container.innerHTML = `
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-messina-dark dark:text-white">Question ${currentQuestion + 1} of ${questions.length}</span>
-                    <span class="text-sm text-messina-pink font-bold">${Math.round(progress)}%</span>
+                    <span class="text-sm font-medium text-neoearth-char dark:text-neoearth-sandstone">Question ${currentQuestion + 1} of ${questions.length}</span>
+                    <span class="text-sm text-neoearth-terracotta font-bold">${Math.round(progress)}%</span>
                 </div>
                 <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                    <div class="bg-gradient-to-r from-messina-pink to-messina-mint h-2 rounded-full quiz-progress" style="width: ${progress}%"></div>
+                    <div class="bg-gradient-to-r from-neoearth-terracotta to-neoearth-pistachio h-2 rounded-full quiz-progress" style="width: ${progress}%"></div>
                 </div>
             </div>
             
-            <h3 class="text-2xl font-bold mb-8 text-messina-dark dark:text-white">${question.question}</h3>
+            <h3 class="text-2xl font-bold mb-8 text-neoearth-terracotta dark:text-neoearth-terracotta">${question.question}</h3>
             
             <div class="space-y-4">
                 ${question.options.map((option, index) => `
-                    <button class="quiz-option w-full p-4 text-left bg-messina-cream dark:bg-gray-800 rounded-xl border-2 border-transparent hover:border-messina-pink transition-all"
+                    <button class="quiz-option w-full p-4 text-left bg-neoearth-sandstone dark:bg-neoearth-char backdrop-blur-sm rounded-xl border-2 border-neoearth-cocoa/20 hover:border-neoearth-cyberlime hover:bg-neoearth-cyberlime/10 dark:hover:bg-neoearth-cyberlime/20 transition-all"
                             data-personality="${option.personality}" data-index="${index}">
-                        <span class="text-messina-dark dark:text-white">${option.text}</span>
+                        <span class="text-neoearth-char dark:text-neoearth-sandstone font-medium">${option.text}</span>
                     </button>
                 `).join('')}
             </div>
@@ -579,23 +579,23 @@ function initQuiz() {
         container.innerHTML = `
             <div class="text-center">
                 <div class="text-6xl mb-6">${result.emoji}</div>
-                <h3 class="text-3xl font-bold mb-4 text-messina-dark dark:text-white">You're ${result.flavour}!</h3>
-                <p class="text-lg mb-6 text-gray-600 dark:text-gray-300">${result.description}</p>
+                <h3 class="text-3xl font-bold mb-4 text-neoearth-terracotta dark:text-neoearth-terracotta">You're ${result.flavour}!</h3>
+                <p class="text-lg mb-6 text-neoearth-char dark:text-neoearth-sandstone">${result.description}</p>
                 
-                <div class="bg-messina-cream dark:bg-gray-800 p-6 rounded-xl mb-6">
-                    <h4 class="font-semibold mb-3 text-messina-dark dark:text-white">Your personality traits:</h4>
+                <div class="bg-neoearth-sandstone dark:bg-neoearth-char backdrop-blur-sm p-6 rounded-xl mb-6 border border-neoearth-cocoa/20">
+                    <h4 class="font-semibold mb-3 text-neoearth-char dark:text-neoearth-sandstone">Your personality traits:</h4>
                     <div class="flex flex-wrap gap-2 justify-center">
                         ${result.traits.map(trait => `
-                            <span class="px-3 py-1 bg-messina-pink text-white rounded-full text-sm">${trait}</span>
+                            <span class="px-3 py-1 bg-neoearth-lavender text-white rounded-full text-sm">${trait}</span>
                         `).join('')}
                     </div>
                 </div>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button id="share-result" class="bg-messina-pink text-white px-6 py-3 rounded-full font-semibold hover:bg-messina-mint transition-all hover:scale-105">
+                    <button id="share-result" class="bg-neoearth-terracotta text-white px-6 py-3 rounded-full font-semibold hover:bg-neoearth-cyberlime transition-all hover:scale-105">
                         📸 Share on IG
                     </button>
-                    <button id="retake-quiz" class="bg-messina-mint text-white px-6 py-3 rounded-full font-semibold hover:bg-messina-pink transition-all hover:scale-105">
+                    <button id="retake-quiz" class="bg-neoearth-pistachio text-white px-6 py-3 rounded-full font-semibold hover:bg-neoearth-cyberlime transition-all hover:scale-105">
                         🔄 Retake Quiz
                     </button>
                 </div>
@@ -702,10 +702,10 @@ function initCarousel() {
         slides[index]?.classList.add('active');
         
         // Update dots
-        dots[currentSlide]?.classList.remove('bg-messina-pink');
+        dots[currentSlide]?.classList.remove('bg-neoearth-coral');
         dots[currentSlide]?.classList.add('bg-gray-300');
         dots[index]?.classList.remove('bg-gray-300');
-        dots[index]?.classList.add('bg-messina-pink');
+        dots[index]?.classList.add('bg-neoearth-coral');
         
         currentSlide = index;
     }
@@ -917,11 +917,11 @@ function initScrollEffects() {
     const nav = document.querySelector('nav');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 100) {
-            nav.classList.add('bg-white/95', 'dark:bg-messina-dark/95');
-            nav.classList.remove('bg-white/80', 'dark:bg-messina-dark/80');
+            nav.classList.add('bg-neoearth-cocoa');
+            nav.classList.remove('bg-neoearth-cocoa/95');
         } else {
-            nav.classList.remove('bg-white/95', 'dark:bg-messina-dark/95');
-            nav.classList.add('bg-white/80', 'dark:bg-messina-dark/80');
+            nav.classList.remove('bg-neoearth-cocoa');
+            nav.classList.add('bg-neoearth-cocoa/95');
         }
     });
 }
@@ -1207,7 +1207,7 @@ function updateCartDisplay() {
                 </svg>
                 <p>Your cart is empty</p>
                 <p class="text-sm mt-2">Add some delicious gelato to get started!</p>
-                <button onclick="closeCart()" class="mt-4 bg-messina-pink text-white px-6 py-2 rounded-lg hover:bg-messina-mint transition-all">
+                <button onclick="closeCart()" class="mt-4 bg-neoearth-terracotta text-white px-6 py-2 rounded-lg hover:bg-neoearth-cyberlime transition-all">
                     🍦 Browse Flavours
                 </button>
             </div>
@@ -1217,18 +1217,18 @@ function updateCartDisplay() {
     } else {
         cartItems.innerHTML = `
             ${cart.map(item => `
-                <div class="flex items-center space-x-4 p-4 bg-messina-cream dark:bg-gray-800 rounded-xl">
+                <div class="flex items-center space-x-4 p-4 bg-neoearth-sandstone dark:bg-neoearth-char backdrop-blur-sm rounded-xl border border-neoearth-cocoa/20">
                     <div class="text-2xl">${item.emoji}</div>
                     <div class="flex-1">
-                        <h4 class="font-semibold text-messina-dark dark:text-white">${item.name}</h4>
+                        <h4 class="font-semibold text-neoearth-char dark:text-neoearth-sandstone">${item.name}</h4>
                         <p class="text-sm text-gray-600 dark:text-gray-300">$${item.price} each</p>
                     </div>
                     <div class="flex items-center space-x-2">
                         <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" 
-                                class="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-500">-</button>
+                                class="w-8 h-8 bg-neoearth-cocoa/20 dark:bg-neoearth-cocoa/40 text-neoearth-char dark:text-neoearth-sandstone rounded-full flex items-center justify-center text-sm hover:bg-neoearth-cyberlime/30 dark:hover:bg-neoearth-cyberlime/60 transition-all">-</button>
                         <span class="w-8 text-center font-semibold">${item.quantity}</span>
                         <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" 
-                                class="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-500">+</button>
+                                class="w-8 h-8 bg-neoearth-cocoa/20 dark:bg-neoearth-cocoa/40 text-neoearth-char dark:text-neoearth-sandstone rounded-full flex items-center justify-center text-sm hover:bg-neoearth-cyberlime/30 dark:hover:bg-neoearth-cyberlime/60 transition-all">+</button>
                     </div>
                     <button onclick="removeFromCart(${item.id})" 
                             class="text-red-500 hover:text-red-700 p-1">
@@ -1239,10 +1239,10 @@ function updateCartDisplay() {
                 </div>
             `).join('')}
             
-            <div class="mt-6 p-4 bg-messina-cream/50 dark:bg-gray-800/50 rounded-xl border-2 border-dashed border-messina-pink/30">
+            <div class="mt-6 p-4 bg-neoearth-sandstone/60 dark:bg-neoearth-char/60 backdrop-blur-sm rounded-xl border-2 border-dashed border-neoearth-terracotta/30">
                 <div class="text-center">
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Want to add more flavours?</p>
-                    <button onclick="closeCart()" class="bg-messina-mint text-white px-4 py-2 rounded-lg font-semibold hover:bg-messina-pink transition-all hover:scale-105">
+                    <button onclick="closeCart()" class="bg-neoearth-pistachio text-white px-4 py-2 rounded-lg font-semibold hover:bg-neoearth-cyberlime transition-all hover:scale-105">
                         🍦 Continue Shopping
                     </button>
                 </div>

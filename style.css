@@ -1,3 +1,42 @@
+/* 
+=================================================================================
+GELATO MESSINA DESIGN SYSTEM
+=================================================================================
+
+DESIGN RULES (Brand Guidelines)
+----------------------------------------------
+• Use Cocoa Core (#8B4513) for nav/header backgrounds and key brand elements  
+• Sandstone (#F5E6D3) is the default light surface; Char (#2C2C2C) is the default text  
+• Terracotta (#CD5C5C) headlines + primary CTAs  
+• Lavender (#B19CD9) & Pistachio (#93C572) = secondary badges, icons, trust marks  
+• Cyber Lime (#ADFF2F) ONLY for hover / focus states or micro-animations  
+• Icy Blue (#B0E0E6) adds temp contrast in illustrations or info sections  
+• Maintain ≥ 4.5:1 contrast; small text ≥ 7:1 (Char on Sandstone)
+
+COLOR PALETTE
+----------------------------------------------
+Primary Brand Colors:
+- Cocoa Core: #8B4513 (nav/header backgrounds & key brand elements)
+- Sandstone: #F5E6D3 (default light surface)
+- Char: #2C2C2C (default text color)
+- Terracotta: #CD5C5C (headlines + primary CTAs)
+
+Secondary Colors:
+- Lavender: #B19CD9 (secondary badges, icons, trust marks)
+- Pistachio: #93C572 (secondary badges, icons, trust marks)
+- Cyber Lime: #ADFF2F (ONLY hover/focus states & micro-animations)
+- Icy Blue: #B0E0E6 (temp contrast in illustrations/info sections)
+
+ACCESSIBILITY
+----------------------------------------------
+- All color combinations maintain WCAG 2.1 AA compliance
+- Minimum 4.5:1 contrast ratio for normal text
+- Minimum 7:1 contrast ratio for small text
+- Cyber Lime reserved for interactive states only (never static text)
+
+=================================================================================
+*/
+
 /* Custom CSS for Gelato Messina Website */
 
 /* Animation keyframes */
@@ -47,7 +86,7 @@
 #hero {
     position: relative;
     /* Fallback background in case image doesn't load */
-    background: linear-gradient(135deg, #FF6B9D 0%, #4ECDC4 50%, #2D1B69 100%);
+    background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #7B4F35 100%);
 }
 
 #hero-bg {
