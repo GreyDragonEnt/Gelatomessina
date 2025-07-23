@@ -930,34 +930,7 @@ function initScrollEffects() {
         });
     });
     
-    // Navbar background on scroll (with throttling to prevent flicker during navigation)
-    const nav = document.querySelector('nav');
-    let scrollTimeout;
-    let isScrolling = false;
-    
-    window.addEventListener('scroll', () => {
-        // Clear the timeout if it exists
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
-        }
-        
-        // Set isScrolling to true
-        isScrolling = true;
-        
-        // Set a timeout to run after scrolling stops
-        scrollTimeout = setTimeout(() => {
-            isScrolling = false;
-            
-            // Only change navbar if we're not in the middle of a navigation transition
-            if (window.scrollY > 100) {
-                nav.classList.add('bg-neoearth-cocoa');
-                nav.classList.remove('bg-neoearth-cocoa/95');
-            } else {
-                nav.classList.remove('bg-neoearth-cocoa');
-                nav.classList.add('bg-neoearth-cocoa/95');
-            }
-        }, 150); // Wait 150ms after scrolling stops
-    });
+    // Note: Navbar color changing on scroll has been removed - header maintains consistent styling
 }
 
 // Accessibility enhancements
