@@ -913,16 +913,50 @@ function initScrollEffects() {
         observer.observe(el);
     });
     
-    // Navbar background on scroll
+    // Add smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerHeight = 80; // Account for fixed header
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Navbar background on scroll (with throttling to prevent flicker during navigation)
     const nav = document.querySelector('nav');
+    let scrollTimeout;
+    let isScrolling = false;
+    
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            nav.classList.add('bg-neoearth-cocoa');
-            nav.classList.remove('bg-neoearth-cocoa/95');
-        } else {
-            nav.classList.remove('bg-neoearth-cocoa');
-            nav.classList.add('bg-neoearth-cocoa/95');
+        // Clear the timeout if it exists
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
         }
+        
+        // Set isScrolling to true
+        isScrolling = true;
+        
+        // Set a timeout to run after scrolling stops
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+            
+            // Only change navbar if we're not in the middle of a navigation transition
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-neoearth-cocoa');
+                nav.classList.remove('bg-neoearth-cocoa/95');
+            } else {
+                nav.classList.remove('bg-neoearth-cocoa');
+                nav.classList.add('bg-neoearth-cocoa/95');
+            }
+        }, 150); // Wait 150ms after scrolling stops
     });
 }
 
